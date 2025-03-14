@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: "/chestboard/",
+  base: "/dist/",
   server: {
     port: 3000,
   },
