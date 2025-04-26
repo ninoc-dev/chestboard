@@ -12,7 +12,12 @@ html {
 
 @font-face {
     font-family: "Arkitech", sans-serif;
-    src: url(/Fonts/Arkitech.ttf);
+    src: 
+    url(/Fonts/Arkitech.ttf) format('truetype'),
+    url(/Fonts/Arkitech-Medium.woff2) format('woff2'),
+    url(/Fonts/Arkitech-Medium.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
     font-display: swap;
 }
 
@@ -468,7 +473,7 @@ svg .crta1 path {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
-} */
+    } */
 
 .solar-system {
     position: absolute;
