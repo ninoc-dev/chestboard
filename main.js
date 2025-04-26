@@ -1,0 +1,163 @@
+import { animate, stagger, hover, inView } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+
+const tocke = document.querySelectorAll('.tocka');
+
+const svg = document.querySelector('.crta1')
+const path = svg.querySelector('path')
+const logo = document.querySelector(".logo");
+
+const linki = document.querySelectorAll('header ul li');
+hover(linki, (element) => {
+    animate(element, {scale: 1.1});
+
+    return () => animate(element, {scale: 1});
+})
+
+let y = null;
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('header ul a');
+const underline = document.querySelector('.header-underline');
+
+const scroll = () => {
+    const distance = window.scrollY;
+    const totalDistance = svg.clientHeight - window.innerHeight;
+    const pathLength = path.getTotalLength();
+
+    const prag = 200;
+
+    if (distance < prag) {
+        path.style.strokeDasharray = `${pathLength}`;
+        path.style.strokeDashoffset = `${pathLength}`;
+        return;
+    }
+
+    const adjustedDistance = distance - prag;
+
+    const slowdownFactor = 2.5;
+    const adjustedTotalDistance = (totalDistance - prag) * slowdownFactor;
+
+    // Izračunaj odstotek
+    const percentage = adjustedDistance / adjustedTotalDistance;
+
+    const clampedPercentage = Math.max(0, Math.min(1, percentage));
+
+    path.style.strokeDasharray = `${pathLength}`;
+    path.style.strokeDashoffset = `${pathLength * (1 - clampedPercentage)}`;
+}
+
+scroll();
+
+const SedanjifSize = parseFloat(window.getComputedStyle(logo).fontSize);
+const fSize = (Math.round(SedanjifSize));
+const sirinaOkna = window.innerWidth;
+
+function logoScroll(logo, linki) {
+    let y = null;
+    const magrin = 9;
+    const ease = 'easeOut';
+
+    return function () {
+        const { top } = logo.getBoundingClientRect();
+        const currentPageYOffset = window.pageYOffset;
+        let stickyActive = false;
+
+        if (sirinaOkna >= 665) {
+            if (top < 10 && y === null && !stickyActive) {
+                y = currentPageYOffset;
+                // console.log(y);
+                logo.style.fontSize = getComputedStyle(logo).fontSize;
+                animate(logo, { fontSize: [fSize + 'px', fSize/3 + 'px'] });
+                logo.classList.add("sticky");
+                logo.style.mixBlendMode = 'difference'
+                if (linki.length > 1) {
+                    animate(linki[0], {x: -magrin +'rem'}, {ease: ease})
+                    animate(linki[1], {x: -magrin +'rem'}, {ease: ease, delay: 0.05})
+                    animate(linki[2], {x: magrin +'rem'}, {ease: ease})
+                    animate(linki[3], {x: magrin +'rem'}, {ease: ease, delay: 0.05})
+                }
+            } else if (currentPageYOffset < y) {
+                logo.classList.remove("sticky");
+                logo.style.mixBlendMode = 'normal';
+                animate(logo, { fontSize: fSize + 'px' }, {delay: 0.2});
+                if (linki.length > 1) {
+                    animate(linki[1], {x: '0rem'}, {ease: ease, delay: 0.05})
+                    animate(linki[0], {x: '0rem'}, {ease: ease})
+                    animate(linki[3], {x: '0rem'}, {ease: ease, delay: 0.05})
+                    animate(linki[2], {x: '0rem'}, {ease: ease})
+                }
+                y = null;
+            }
+        }
+    };
+}
+const logoAni = logoScroll(logo, linki);
+
+
+function zaznavanjeLink(sections, navLinks) {
+    let top = window.scrollY;
+    let firstOffset = sections[0].offsetTop - 150;
+
+    if (top < firstOffset) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        return;
+    }
+
+    let found = false;
+    sections.forEach((sec, i) => {
+        let offset = sec.offsetTop - 150;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id');
+        if (
+            (!found && top >= offset && top < offset + height) ||
+            (i === sections.length - 1 &&
+                window.innerHeight + window.scrollY >=
+                    document.body.offsetHeight - 2)
+        ) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(
+                'header ul a[href="#' + id + '"]'
+            );
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            found = true;
+        }
+    });
+}
+
+window.addEventListener('scroll', () => {
+    scroll();
+    logoAni();
+    zaznavanjeLink(sections, navLinks);
+})
+
+
+hover('.razvoj button', btn => {
+    const t = 0.1
+    animate(btn, { background: 'rgba(255, 255, 255, 0.2)' }, { duration: t })
+
+    const icon = btn.querySelector('svg')
+    animate(icon, { x: '0.5rem' }, { ease: 'easeOut', duration: t, delay: 0.2 })
+
+    return () => {
+        animate(btn, { background: 'rgba(255, 255, 255, 0.10)' }, { duration: t })
+        if (icon) {
+            animate(icon, { x: '0rem' }, { ease: 'easeOut', duration: t })
+        }
+    }
+})
+
+inView('.onas .solar-system', (orbita) => {
+    const orbit1 = orbita.querySelector('.orbit1')
+    const orbit2 = orbita.querySelector('.orbit2')
+    const orbit3 = orbita.querySelector('.orbit3')
+
+    animate(orbit1, {rotate: [0, 360]}, {duration: 5, repeat: Infinity, ease: 'linear',})
+    animate(orbit2, {rotate: [360, 0]}, {duration: 8, repeat: Infinity, ease: 'linear', delay: 0.06})
+    animate(orbit3, {rotate: [0, 360]}, {duration: 12, repeat: Infinity, ease: 'linear',delay: 0.3})
+
+    return () => {}
+}, {margin: '200px 0px 200px 0px'}
+);
+
+

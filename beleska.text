@@ -1,0 +1,33 @@
+window.addEventListener("scroll", () => {
+    const {top} = logo.getBoundingClientRect();
+    
+    if (top < 10 && y === null) {
+        y = window.pageYOffset;
+        console.log(y);
+        logo.style.fontSize = getComputedStyle(logo).fontSize;
+        animate(logo, {fontSize: ['4.5rem', '2rem']});
+        logo.classList.add("sticky");
+        
+        if (linki.length > 1) {
+            linki[1].style.marginRight = '28rem';
+        }
+    }
+    else if (window.pageYOffset < y) {
+        logo.classList.remove("sticky");
+        animate(logo, {fontSize: '4.5rem'});
+        
+        if (linki.length > 1) {
+            linki[1].style.marginRight = '';
+        }
+
+        y = null;
+    }
+});
+
+
+4.5rem = 72px
+2rem = 16px
+
+72:16 = 9:2 = 4.5:1
+
+
