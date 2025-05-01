@@ -31,3 +31,94 @@ window.addEventListener("scroll", () => {
 72:16 = 9:2 = 4.5:1
 
 
+// press('.razvoj button', (btn) => {
+//     const section = document.querySelector('.razvoj')
+
+//     const overlay = document.createElement('div');
+//     overlay.classList.add('overlay');
+
+//     const zaOkno = document.createElement('div');
+//     zaOkno.classList.add('zaOkno');
+
+//     overlay.appendChild(zaOkno)
+//     document.body.appendChild(overlay);
+
+//     animate(zaOkno, {opacity: 1, scale:5}, {delay: 0.1})
+
+//     return () => {animate(btn, {scale: 1})}
+// })
+
+
+
+/* .overlay{
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.zaOkno{
+    background-color: red;
+    opacity: 1;
+    width: 100px;
+    height: 100px;
+} */
+
+
+
+press('.razvoj button', (btn) => {
+    const section = document.querySelector('.razvoj')
+    const index = btn.dataset.index;
+    const hidSec = document.querySelector(`.hidRaz${index}`);
+    const hidCont = hidSec.querySelector('.hidVsebina');
+    const closeBtn = hidSec.querySelector('.closeBtn');
+
+    if (!hidSec) {
+        console.error(`Element .hidRaz${index} ni najden`);
+        return () => {};
+    }       
+
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    overlay.style.display = 'flex'
+
+    const zaOkno = document.createElement('div');
+    zaOkno.classList.add('zaOkno');
+
+    overlay.appendChild(zaOkno)
+    overlay.appendChild(hidSec);
+    section.appendChild(overlay);
+    body.style.overflow = 'hidden';
+    animate(logo, {opacity: 0}, {duration: 0.1})
+    animate(linki, {opacity: 0}, {duration: 0.1})
+
+    animate(overlay, {opacity: 1})
+    animate(zaOkno, {opacity: 1, scale:2}, {delay: 0.1})
+    
+    const odpiranje = [
+        [hidSec.style.display = 'block'],
+        [hidCont.style.display = 'block'],
+        [hidSec, {opacity: 1}],
+        [zaOkno, {opacity: 0}],
+        [zaOkno.remove()],
+        [hidSec, {maxHeight: ['100vh', '96vh']}, {duration: 0.1}],
+        ['.hidVsebina > *', {opacity: 1, x: [10, 0]}, {delay: stagger(0.05), at: 0.1}],
+        // [colseBtn, {opacity: 1, rotate: [0, 180]}, {duration: 0.5, ease: 'easeOut', at: 1}]
+    ]
+    animate(odpiranje)
+
+    press(closeBtn, (element) => {
+        animate(element, {rotate: 360})
+
+        return () => {}
+    })
+
+    return () => {}
+})
+
+, {delay: stagger(0.05, {from: 'last'})}
