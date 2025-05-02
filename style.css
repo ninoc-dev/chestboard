@@ -11,7 +11,7 @@ html {
 }
 
 @font-face {
-    font-family: "Arkitech", sans-serif;
+    font-family: "Arkitech";
     src: 
     url(https://ninoc-dev.github.io/chestboard/Fonts/Arkitech.ttf) format('truetype'),
     url(https://ninoc-dev.github.io/chestboard/Fonts/Arkitech-Medium.woff2) format('woff2'),
@@ -52,7 +52,7 @@ p {
 }
 
 .logo {
-    font-family: "Arkitech", sans-serif;
+    font-family: "Arkitech";
     color: rgba(255, 255, 255, 0.8);
     font-size: clamp(2rem, 7vw, 4.5rem);
     margin-top: 1rem;
