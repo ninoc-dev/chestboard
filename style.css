@@ -11,7 +11,7 @@ html {
 }
 
 @font-face {
-    font-family: "Arkitech", sans-serif;
+    font-family: "Arkitech";
     src: 
     url(https://ninoc-dev.github.io/chestboard/Fonts/Arkitech.ttf) format('truetype'),
     url(https://ninoc-dev.github.io/chestboard/Fonts/Arkitech-Medium.woff2) format('woff2'),
@@ -22,7 +22,7 @@ html {
 }
 
 @font-face {
-    font-family: "San Francisco", sans-serif;
+    font-family: "San Francisco";
     src: url(/Fonts/SF-Pro.ttf);
 }
 
