@@ -13,9 +13,9 @@ html {
 @font-face {
     font-family: "Arkitech";
     src: 
-    url("/#2ChestBoard/Fonts/Arkitech.ttf") format('truetype'),
-    url(/#2ChestBoard/Fonts/Arkitech-Medium.woff2) format('woff2'),
-    url(/#2ChestBoard/Fonts/Arkitech-Medium.woff) format('woff');
+    url("/chestboard/Fonts/Arkitech.ttf") format('truetype'),
+    url(/chestboard/Fonts/Arkitech-Medium.woff2) format('woff2'),
+    url(/chestboard/Fonts/Arkitech-Medium.woff) format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -23,7 +23,7 @@ html {
 
 @font-face {
     font-family: "San Francisco";
-    src: url(/#2ChestBoard/Fonts/SF-Pro.ttf);
+    src: url(/chestboard/Fonts/SF-Pro.ttf);
 }
 
 :root {
